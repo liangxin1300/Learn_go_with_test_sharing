@@ -38,7 +38,7 @@
 
 				<section data-background="#006400" data-markdown>
 				#### Hello World
-				```
+				```go
 				//hello.go
 				package main
 
@@ -50,6 +50,42 @@
 				```
 				```
 				go run hello.go
+				```
+				</section>
+
+				<section data-background="#006400" data-markdown>
+				#### How to test
+				```go
+				//hello.go
+				package main
+
+				import "fmt"
+
+				func Hello() string {
+					return "Hello, world"
+				}
+
+				func main() {
+					fmt.Println(Hello())
+				}
+				```
+				```go
+				//hello_test.go
+				package main
+
+				import "testing"
+
+				func TestHello(t *testing.T) {
+					got := Hello()
+					want := "Hello, world"
+
+					if got != want {
+						t.Errorf("got '%s' want '%s'", got, want)
+					}
+				}
+				```
+				```
+				go test
 				```
 				</section>
 			</div>
