@@ -97,8 +97,12 @@ PASS
 ok  	_/opt/go/test_go	0.005s
 ```
 </section>
+</section>
+<section>
 <section data-background="#006400" data-markdown>
+<h4>Hello, You</h4>
 ```go
+//hello_test.go
 package main
 
 import "testing"
@@ -113,13 +117,100 @@ func TestHello(t *testing.T) {
 }
 ```
 ```
-# _/opt/go/test_go
 ./hello_test.go:6:17: too many arguments in call to Hello
 	have (string)
 	want ()
-FAIL	_/opt/go/test_go [build failed
+FAIL	_/opt/go/test_go [build failed]
 ```
 </section>
+<section data-background="#006400" data-markdown>
+<h4>Make the test pass</h4>
+```
+//hello.go
+func Hello(name string) string {
+    return "Hello, " +  name
+}
+```
+</section>
+</section>
+
+<section>
+<section data-background="#006400" data-markdown>
+<h4>Hello, again</h4>
+```go
+//hello_test.go
+package main
+
+import "testing"
+
+func TestHello(t *testing.T) {
+
+    assertCorrectMessage := func(t *testing.T, got, want string) {
+        t.Helper()
+        if got != want {
+            t.Errorf("got '%s' want '%s'", got, want)
+        }
+    }
+
+    t.Run("saying hello to people", func(t *testing.T) {
+        got := Hello("Chris")
+        want := "Hello, Chris"
+        assertCorrectMessage(t, got, want)
+    })
+
+    t.Run("empty string defaults to 'World'", func(t *testing.T) {
+        got := Hello("")
+        want := "Hello, World"
+        assertCorrectMessage(t, got, want)
+    })
+
+}
+```
+</section>
+<section data-background="#006400" data-markdown>
+<h4>Hello, again, fail</h4>
+```
+go test
+```
+```
+--- FAIL: TestHello (0.00s)
+    --- FAIL: TestHello/empty_string_defaults_to_'World' (0.00s)
+    	hello_test.go:23: got 'Hello, ' want 'Hello, World'
+FAIL
+exit status 1
+FAIL	_/opt/go/test_go	0.002s
+```
+</section>
+<section data-background="#006400" data-markdown>
+<h4>Make the test pass</h4>
+```go
+//hello.go
+const englishPrefix = "Hello, "
+
+func Hello(name string) string {
+    if name == "" {
+        name = "World"
+    }
+    return englishPrefix + name
+}
+```
+</section>
+</section>
+<section data-background="#006400" data-markdown>
+Let's go over the cycle again
+
+* Write a test
+* Make the compiler pass
+* Run the test, see that it fails and check the error message is meaningful
+* Write enough code to make the test pass
+* Refactor
+</section>
+
+<section>
+</section>
+<section>
+</section>
+<section>
 </section>
 			</div>
 		</div>
