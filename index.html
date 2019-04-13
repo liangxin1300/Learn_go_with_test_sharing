@@ -207,8 +207,129 @@ Let's go over the cycle again
 </section>
 
 <section>
+<section data-background="#006400" data-markdown>
+Iteration - Write the test first
+```go
+package iteration
+
+import "testing"
+
+func TestRepeat(t *testing.T) {
+    repeated := Repeat("a")
+    expected := "aaaaa"
+
+    if repeated != expected {
+        t.Errorf("expected '%s' but got '%s'", expected, repeated)
+    }
+}
+```
+```
+./repeat_test.go:6:14: undefined: Repeat
+```
+</section>
+<section data-background="#006400" data-markdown>
+Iteration - Just for the test to run
+```go
+package iteration
+
+func Repeat(character string) string {
+    return ""
+}
+```
+```
+repeat_test.go:10: expected 'aaaaa' but got ''
+```
+</section>
+<section data-background="#006400" data-markdown>
+Iteration - Write enough code to make it pass
+```go
+func Repeat(character string) string {
+    var repeated string
+    for i := 0; i < 5; i++ {
+        repeated = repeated + character
+    }
+    return repeated
+}
+```
+</section>
+<section data-background="#006400" data-markdown>
+Iteration - Refactor
+```go
+const repeatCount = 5
+
+func Repeat(character string) string {
+    var repeated string
+    for i := 0; i < repeatCount; i++ {
+        repeated += character
+    }
+    return repeated
+}
+```
+</section>
 </section>
 <section>
+<section data-background="#006400" data-markdown>
+Arrays and slices - Write the test first
+```go
+package main
+
+import "testing"
+
+func TestSum(t *testing.T) {
+
+    numbers := [5]int{1, 2, 3, 4, 5}
+
+    got := Sum(numbers)
+    want := 15
+
+    if want != got {
+        t.Errorf("got %d want %d given, %v", got, want, numbers)
+    }
+}
+```
+```
+./sum_test.go:10:15: undefined: Sum
+```
+</section>
+<section data-background="#006400" data-markdown>
+Arrays and slices - Just for the test to run
+```go
+package main
+
+func Sum(numbers [5]int) int {
+    return 0
+}
+```
+```
+sum_test.go:13: got 0 want 15 given, [1 2 3 4 5]
+```
+</section>
+<section data-background="#006400" data-markdown>
+Arrays and slices - Write enough code to make it pass
+```go
+func Sum(numbers [5]int) int {
+    sum := 0
+    for i := 0; i < 5; i++ {
+        sum += numbers[i]
+    }
+    return sum
+}
+```
+</section>
+<section data-background="#006400" data-markdown>
+Arrays and slices - Refactor
+```go
+func Sum(numbers [5]int) int {
+    sum := 0
+    for _, number := range numbers {
+        sum += number
+    }
+    return sum
+}
+```
+</section>
+<section data-background="#006400" data-markdown>
+</section>
 </section>
 <section>
 </section>
