@@ -30,10 +30,6 @@
 </section>
 
 <section data-background="#006400" data-markdown>
-![](red-green-blue-gophers-smaller.png)
-</section>
-
-<section data-background="#006400" data-markdown>
 <h1>Install on openSUSE</h1>
 ```
 zypper in go
@@ -214,6 +210,10 @@ Let's go over the cycle again
 * Refactor
 </section>
 
+<section data-background="#006400" data-markdown>
+![](red-green-blue-gophers-smaller.png)
+</section>
+
 <section>
 <section data-background="#006400" data-markdown>
 Iteration - Write the test first
@@ -235,6 +235,7 @@ func TestRepeat(t *testing.T) {
 ./repeat_test.go:6:14: undefined: Repeat
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 Iteration - Just for the test to run
 ```go
@@ -248,6 +249,7 @@ func Repeat(character string) string {
 repeat_test.go:10: expected 'aaaaa' but got ''
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 Iteration - Write enough code to make it pass
 ```go
@@ -260,6 +262,7 @@ func Repeat(character string) string {
 }
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 Iteration - Refactor
 ```go
@@ -275,6 +278,7 @@ func Repeat(character string) string {
 ```
 </section>
 </section>
+
 <section>
 <section data-background="#006400" data-markdown>
 Arrays and slices - Write the test first
@@ -299,6 +303,7 @@ func TestSum(t *testing.T) {
 ./sum_test.go:10:15: undefined: Sum
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 Arrays and slices - Just for the test to run
 ```go
@@ -312,6 +317,7 @@ func Sum(numbers [5]int) int {
 sum_test.go:13: got 0 want 15 given, [1 2 3 4 5]
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 Arrays and slices - Write enough code to make it pass
 ```go
