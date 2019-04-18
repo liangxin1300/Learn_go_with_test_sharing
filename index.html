@@ -518,6 +518,167 @@ func Area(width float64, height float64) float64 {
 }
 ```
 </section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Refactor
+```go
+//shapes.go
+type Rectangle struct {
+    Width float64
+    Height float64
+}
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Refactor
+```go
+//shapes_test.go
+func TestPerimeter(t *testing.T) {
+    rectangle := Rectangle{10.0, 10.0}
+    got := Perimeter(rectangle)
+    want := 40.0
+
+    if got != want {
+        t.Errorf("got %.2f want %.2f", got, want)
+    }
+}
+
+func TestArea(t *testing.T) {
+    rectangle := Rectangle{12.0, 6.0}
+    got := Area(rectangle)
+    want := 72.0
+
+    if got != want {
+        t.Errorf("got %.2f want %.2f", got, want)
+    }
+}
+```
+```
+./shapes_test.go:7:18: not enough arguments in call to Perimeter
+    have (Rectangle)
+    want (float64, float64)
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Refactor
+```go
+//shapes.go
+func Perimeter(rectangle Rectangle) float64 {
+    return 2 * (rectangle.Width + rectangle.Height)
+}
+
+func Area(rectangle Rectangle) float64 {
+    return rectangle.Width * rectangle.Height
+}
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Write the test first
+```go
+//shapes_test.go
+
+func TestArea(t *testing.T) {
+
+    t.Run("rectangles", func(t *testing.T) {
+        rectangle := Rectangle{12, 6}
+        got := Area(rectangle)
+        want := 72.0
+
+        if got != want {
+            t.Errorf("got %.2f want %.2f", got, want)
+        }
+    })
+
+    t.Run("circles", func(t *testing.T) {
+        circle := Circle{10}
+        got := Area(circle)
+        want := 314.1592653589793
+
+        if got != want {
+            t.Errorf("got %.2f want %.2f", got, want)
+        }
+    })
+
+}
+```
+```
+./shapes_test.go:28:13: undefined: Circle
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Just for the test to run
+```go
+//shapes.go
+type Circle struct {
+    Radius float64
+}
+```
+```
+./shapes_test.go:29:14: cannot use circle (type Circle) as type Rectangle in argument to Area
+
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Write the test first
+```go
+//shapes_test.go
+func TestArea(t *testing.T) {
+
+    t.Run("rectangles", func(t *testing.T) {
+        rectangle := Rectangle{12, 6}
+        got := rectangle.Area()
+        want := 72.0
+
+        if got != want {
+            t.Errorf("got %.2f want %.2f", got, want)
+        }
+    })
+
+    t.Run("circles", func(t *testing.T) {
+        circle := Circle{10}
+        got := circle.Area()
+        want := 314.1592653589793
+
+        if got != want {
+            t.Errorf("got %f want %f", got, want)
+        }
+    })
+
+}
+```
+```
+./shapes_test.go:19:19: rectangle.Area undefined (type Rectangle has no field or method Area)
+./shapes_test.go:29:16: circle.Area undefined (type Circle has no field or method Area)
+```
+</section>
+<section data-background="#006400" data-markdown>
+Structs, methods & interfaces - Just for the test to run
+```go
+//shapes.go
+type Rectangle struct {
+    Width  float64
+    Height float64
+}
+
+func (r Rectangle) Area() float64  {
+    return 0
+}
+
+type Circle struct {
+    Radius float64
+}
+
+func (c Circle) Area() float64  {
+    return 0
+}
+```
+</section>
+
 </section>
 
 <section data-background="#006400" data-markdown>
