@@ -24,6 +24,7 @@
 	<body>
 		<div class="reveal">
 <div class="slides">
+
 <section data-background="#006400" data-markdown>
 <h1>Learn Go with Tests</h1>
 </section>
@@ -58,7 +59,7 @@ go run hello.go
 
 <section>
 <section data-background="#006400" data-markdown>
-#### How to test
+<h1>How to test</h1>
 ```go
 //hello.go
 package main
@@ -74,6 +75,7 @@ func main() {
 }
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
 ```go
 //hello_test.go
@@ -99,9 +101,10 @@ ok  	_/opt/go/test_go	0.005s
 ```
 </section>
 </section>
+
 <section>
 <section data-background="#006400" data-markdown>
-<h4>Hello, You</h4>
+<h1>Hello, You</h1>
 ```go
 //hello_test.go
 package main
@@ -124,8 +127,9 @@ func TestHello(t *testing.T) {
 FAIL	_/opt/go/test_go [build failed]
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
-<h4>Make the test pass</h4>
+<h1>Make the test pass</h1>
 ```
 //hello.go
 func Hello(name string) string {
@@ -137,7 +141,7 @@ func Hello(name string) string {
 
 <section>
 <section data-background="#006400" data-markdown>
-<h4>Hello, again</h4>
+<h1>Hello, again</h1>
 ```go
 //hello_test.go
 package main
@@ -168,8 +172,9 @@ func TestHello(t *testing.T) {
 }
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
-<h4>Hello, again, fail</h4>
+<h1>Hello, again, fail</h1>
 ```
 go test
 ```
@@ -182,8 +187,9 @@ exit status 1
 FAIL	_/opt/go/test_go	0.002s
 ```
 </section>
+
 <section data-background="#006400" data-markdown>
-<h4>Make the test pass</h4>
+<h1>Make the test pass</h1>
 ```go
 //hello.go
 const englishPrefix = "Hello, "
@@ -197,6 +203,7 @@ func Hello(name string) string {
 ```
 </section>
 </section>
+
 <section data-background="#006400" data-markdown>
 Let's go over the cycle again
 
