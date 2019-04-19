@@ -665,6 +665,7 @@ type Rectangle struct {
     Height float64
 }
 
+//func (receiverName RecieverType) MethodName(args)
 func (r Rectangle) Area() float64  {
     return r.Width * r.Height
 }
@@ -680,8 +681,9 @@ func (c Circle) Area() float64  {
 </section>
 
 <section data-background="#006400" data-markdown>
-Structs, methods & interface - Just for the test to run
+Structs, methods & interface - Write the test first
 ```go
+//shapes_test.go
 func TestArea(t *testing.T) {
 
     checkArea := func(t *testing.T, shape Shape, want float64) {
@@ -709,6 +711,16 @@ func TestArea(t *testing.T) {
 <section data-background="#006400" data-markdown>
 Structs, methods & interface - Just for the test to run
 ```go
+type Shape interface {
+    Area() float64
+}
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interface - Further refactoring
+```go
+//shapes_test.go
 //Table driven tests
 func TestArea(t *testing.T) {
 
@@ -730,6 +742,97 @@ func TestArea(t *testing.T) {
 }
 ```
 </section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interface - Write the test first
+```go
+//shapes_test.go
+TestArea(t *testing.T) {
+
+    areaTests := []struct {
+        shape Shape
+        want  float64
+    }{
+        {Rectangle{12, 6}, 72.0},
+        {Circle{10}, 314.1592653589793},
+        {Triangle{12, 6}, 36.0},
+    }
+
+    for _, tt := range areaTests {
+        got := tt.shape.Area()
+        if got != tt.want {
+            t.Errorf("got %.2f want %.2f", got, tt.want)
+        }
+    }
+
+}
+```
+```
+./shapes_test.go:25:4: undefined: Triangle
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interface - Just for the test to run
+```go
+//shapes.go
+type Triangle struct {
+    Base   float64
+    Height float64
+}
+```
+```
+./shapes_test.go:25:8: cannot use Triangle literal (type Triangle) as type Shape in field value:
+    Triangle does not implement Shape (missing Area method)
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+Structs, methods & interface - Write enough code to make it pass
+```go
+func (t Triangle) Area() float64 {
+    return (t.Base * t.Height) * 0.5
+}
+```
+</section>
+
+<section data-background="#006400" data-markdown>
+```go
+Structs, methods & interface - Refactor
+//shapes_test.go
+func TestArea(t *testing.T) {
+
+    areaTests := []struct {
+        name    string
+        shape   Shape
+        hasArea float64
+    }{
+        {name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, hasArea: 72.0},
+        {name: "Circle", shape: Circle{Radius: 10}, hasArea: 314.1592653589793},
+        {name: "Triangle", shape: Triangle{Base: 12, Height: 6}, hasArea: 36.0},
+    }
+
+    for _, tt := range areaTests {
+        // using tt.name from the case to use it as the `t.Run` test name
+        t.Run(tt.name, func(t *testing.T) {
+            got := tt.shape.Area()
+            if got != tt.hasArea {
+                t.Errorf("%#v got %.2f want %.2f", tt.shape, got, tt.hasArea)
+            }
+        })
+
+    }
+
+}
+```
+</section>
+</section>
+
+<section data-background="#006400" data-markdown>
+Useful Link
+1. https://github.com/quii/learn-go-with-tests
+2. https://gobyexample.com/
+3. https://github.com/hakimel/reveal.js
 </section>
 
 <section data-background="#006400" data-markdown>
