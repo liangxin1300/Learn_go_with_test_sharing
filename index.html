@@ -33,6 +33,9 @@
 <h1>Install on openSUSE</h1>
 ```
 zypper in go
+
+echo $GOPATH
+go help
 ```
 </section>
 
@@ -40,6 +43,7 @@ zypper in go
 <h1>Hello World</h1>
 ```go
 //hello.go
+//Packages are ways of grouping up related Go code together
 package main
 
 import "fmt"
@@ -152,7 +156,7 @@ func TestHello(t *testing.T) {
             t.Errorf("got '%s' want '%s'", got, want)
         }
     }
-
+    //subtests
     t.Run("saying hello to people", func(t *testing.T) {
         got := Hello("Chris")
         want := "Hello, Chris"
@@ -706,6 +710,9 @@ func TestArea(t *testing.T) {
 
 }
 ```
+```
+./shapes_test.go:7:40: undefined: Shape
+```
 </section>
 
 <section data-background="#006400" data-markdown>
@@ -797,8 +804,8 @@ func (t Triangle) Area() float64 {
 </section>
 
 <section data-background="#006400" data-markdown>
-```go
 Structs, methods & interface - Refactor
+```go
 //shapes_test.go
 func TestArea(t *testing.T) {
 
